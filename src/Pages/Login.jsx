@@ -1,0 +1,81 @@
+import React, { useState } from 'react';
+import { Box, Grid, FormControl, TextField, Button } from '@mui/material';
+// import Item from '../Components/Item';
+
+export default function Login() {
+
+    const formObj = {
+        email: "",
+        password: ""
+    }
+
+    const [ values, setValues ] = useState(formObj);
+    const [ errors, setErrors ] = useState({});
+
+    const handleChange = (e) => {
+        const { name, value} = e.target;
+
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
+
+    const handleLogin = () => {
+        if( validateForm() ) {
+            console.log(values);
+        }
+    }
+
+    const validateForm = () => {
+        let newErrors = {};
+        const { email, password } = values;
+        if(email === "") newErrors.email = "Please enter email or mobile";
+        if(password === "") newErrors.password = "Please enter password";
+        
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+    }
+
+    return (
+        <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
+            <Grid container spacing={3}>
+                <Grid item xs></Grid>
+                <Grid item xs={6}>
+                    <h3>Login Page</h3> 
+
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                        <TextField 
+                            label="Email Or Mobile" 
+                            variant="outlined"
+                            name="email"
+                            value={values.email}
+                            onChange={handleChange} 
+                            error={errors.email !== undefined}
+                            helperText={errors?.email}
+                        />
+                    </FormControl>
+
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                        <TextField 
+                            label="Password"
+                            type="password" 
+                            variant="outlined" 
+                            name="password"
+                            value={values.password}
+                            onChange={handleChange} 
+                            error={errors.password !== undefined}
+                            helperText={errors?.password}
+                        />
+                    </FormControl>
+
+                    <FormControl sx={{ m: 1 }}>
+                        <Button variant="outlined" onClick={handleLogin}>Login</Button>                   
+                    </FormControl>
+                </Grid>
+                <Grid item xs></Grid>
+            </Grid>
+        </Box>
+    )
+}
