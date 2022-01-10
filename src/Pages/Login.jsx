@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Grid, FormControl, TextField, Button } from '@mui/material';
-// import Item from '../Components/Item';
+import { Box, Grid, FormControl, TextField, Button, Card, CardContent } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
+    let navigate = useNavigate();
 
     const formObj = {
         email: "",
@@ -23,7 +25,8 @@ export default function Login() {
 
     const handleLogin = () => {
         if( validateForm() ) {
-            console.log(values);
+            // console.log(values);
+            navigate(`/dashboard`);
         }
     }
 
@@ -44,35 +47,38 @@ export default function Login() {
                 <Grid item xs></Grid>
                 <Grid item xs={6}>
                     <h3>Login Page</h3> 
+                    <Card sx={{ minWidth: 275 }} variant="outlined">
+                        <CardContent>
+                            <FormControl fullWidth sx={{ m: 1 }}>
+                                <TextField 
+                                    label="Email Or Mobile" 
+                                    variant="outlined"
+                                    name="email"
+                                    value={values.email}
+                                    onChange={handleChange} 
+                                    error={errors.email !== undefined}
+                                    helperText={errors?.email}
+                                />
+                            </FormControl>
 
-                    <FormControl fullWidth sx={{ m: 1 }}>
-                        <TextField 
-                            label="Email Or Mobile" 
-                            variant="outlined"
-                            name="email"
-                            value={values.email}
-                            onChange={handleChange} 
-                            error={errors.email !== undefined}
-                            helperText={errors?.email}
-                        />
-                    </FormControl>
+                            <FormControl fullWidth sx={{ m: 1 }}>
+                                <TextField 
+                                    label="Password"
+                                    type="password" 
+                                    variant="outlined" 
+                                    name="password"
+                                    value={values.password}
+                                    onChange={handleChange} 
+                                    error={errors.password !== undefined}
+                                    helperText={errors?.password}
+                                />
+                            </FormControl>
 
-                    <FormControl fullWidth sx={{ m: 1 }}>
-                        <TextField 
-                            label="Password"
-                            type="password" 
-                            variant="outlined" 
-                            name="password"
-                            value={values.password}
-                            onChange={handleChange} 
-                            error={errors.password !== undefined}
-                            helperText={errors?.password}
-                        />
-                    </FormControl>
-
-                    <FormControl sx={{ m: 1 }}>
-                        <Button variant="outlined" onClick={handleLogin}>Login</Button>                   
-                    </FormControl>
+                            <FormControl sx={{ m: 1 }}>
+                                <Button variant="outlined" onClick={handleLogin}>Login</Button>                   
+                            </FormControl>                            
+                        </CardContent>
+                    </Card>
                 </Grid>
                 <Grid item xs></Grid>
             </Grid>
