@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@mui/material'
 
-export default function ItemForm({ items, setItems }) {
+export default function ItemForm({ items, setItems, itemIndex, setItemIndex }) {
 
     const formObj = {
         item_name: "",
@@ -22,10 +22,14 @@ export default function ItemForm({ items, setItems }) {
 
     const handleAdd = () => {        
         if( validateForm() ) {
-            items.push(values);
+
+            if(itemIndex !== "") items[itemIndex] = values;
+            if(itemIndex === "") items.push(values);
+
             setItems([...items]);
             // reset current form inputs
             setValues(formObj);
+            setItemIndex("");
         }
     }
 
@@ -39,6 +43,18 @@ export default function ItemForm({ items, setItems }) {
 
         return Object.keys(newErrors).length === 0;
     }
+
+    useEffect(() => {
+        // console.log(items[itemIndex]);
+        if( itemIndex !== "" ) {
+            const currentItem = items[itemIndex];
+            const newFormObj = { ...formObj }; // new object created using formobj
+            for (const [key, value] of Object.entries(formObj)) {
+                newFormObj[key] = currentItem[key];
+            }            
+            setValues(newFormObj);
+        }
+    }, [itemIndex])
 
     return (
         <>
@@ -63,7 +79,7 @@ export default function ItemForm({ items, setItems }) {
                 error={errors.item_price !== undefined}
                 helperText={errors?.item_price}
             /> {` `}
-            <Button variant="outlined" color="success" onClick={handleAdd}>Add</Button>
+            <Button variant="outlined" color="success" onClick={handleAdd}> { itemIndex !== "" ? 'Edit': 'Add' }</Button>
         </>
     )
 }

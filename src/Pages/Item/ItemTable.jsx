@@ -2,21 +2,45 @@ import React from 'react';
 
 import {
     Paper, Table, TableBody, TableCell, TableContainer,
-    TableHead, TableRow 
+    TableHead, TableRow, Stack, IconButton 
 } from '@mui/material';
 
-const TableRowComp = ({ item, ind }) => {
+// import DeleteIcon from '@mui/icons-material/Delete';
+import { Delete, Edit } from '@mui/icons-material';
+
+const TableRowComp = ({ item, ind, setItemIndex, deleteItem }) => {
+
+    const handleEdit = () => {
+        setItemIndex(ind);
+    }
+
     return(
         <TableRow hover role="checkbox" tabIndex={-1}>
             <TableCell align="center" width={20}> { ind + 1 } </TableCell>
             <TableCell align="left"> { item.item_name } </TableCell>
             <TableCell align="left"> { item.item_price } </TableCell>
-            <TableCell align="center"> Action </TableCell>
+            <TableCell align="center"> 
+                <Stack direction="row" spacing={1}>
+                    <IconButton color="warning" aria-label="delete" onClick={handleEdit}>
+                        <Edit />
+                    </IconButton>
+                    <IconButton color="error" aria-label="delete" onClick={() => deleteItem(ind)}>
+                        <Delete />
+                    </IconButton>                    
+                </Stack>
+            </TableCell>
         </TableRow>
     )
 }
 
-export default function ItemTable({ items }) {
+export default function ItemTable({ items, setItems, setItemIndex }) {
+
+    const deleteItem = (ind) => {
+        if( window.confirm('Are you sure to delete ?') ){
+            items.splice(ind, 1);
+            setItems([...items]);
+        }
+    }
 
     return (
         <Paper sx={{ width: '100%' }}>
@@ -36,6 +60,8 @@ export default function ItemTable({ items }) {
                                 key={i}
                                 ind={i}
                                 item={item}
+                                deleteItem={deleteItem}
+                                setItemIndex={setItemIndex}
                             />                            
                         ) }                        
                     </TableBody>

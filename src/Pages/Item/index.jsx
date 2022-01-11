@@ -9,6 +9,7 @@ import ItemTable from './ItemTable';
 export default function Index() {
 
     const [items, setItems] = useState([]);
+    const [itemIndex, setItemIndex] = useState("");
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -20,8 +21,14 @@ export default function Index() {
                     <ItemForm
                         items={items} 
                         setItems={setItems}
+                        itemIndex={itemIndex}
+                        setItemIndex={setItemIndex}
                     />
-                    <ItemTable items={items}/>
+                    <ItemTable 
+                        items={items}
+                        setItems={setItems}
+                        setItemIndex={setItemIndex}    
+                    />
                 </Grid>
             </Grid>
         </Box>

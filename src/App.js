@@ -17,6 +17,7 @@ function App() {
 				<Route path="/" element={<Login />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/item" element={<Item />} />
+				{/* <Route path="/item/:id" element={<Item />} /> */}
 				{/* <Route path="/footer/:id/:page" element={<Footer />} /> */}
 			</Routes>
 		</BrowserRouter>
