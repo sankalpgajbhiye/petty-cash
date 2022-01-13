@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button } from '@mui/material'
+import { TextField, Button } from '@mui/material';
+
+import { itemsKey } from '../../constant';
 
 export default function ItemForm({ items, setItems, itemIndex, setItemIndex }) {
 
@@ -27,6 +29,8 @@ export default function ItemForm({ items, setItems, itemIndex, setItemIndex }) {
             if(itemIndex === "") items.push(values);
 
             setItems([...items]);
+
+            localStorage.setItem(itemsKey, JSON.stringify(items));
             // reset current form inputs
             setValues(formObj);
             setItemIndex("");

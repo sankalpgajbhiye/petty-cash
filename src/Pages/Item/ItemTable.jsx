@@ -8,6 +8,8 @@ import {
 // import DeleteIcon from '@mui/icons-material/Delete';
 import { Delete, Edit } from '@mui/icons-material';
 
+import { itemsKey } from '../../constant';
+
 const TableRowComp = ({ item, ind, setItemIndex, deleteItem }) => {
 
     const handleEdit = () => {
@@ -39,6 +41,8 @@ export default function ItemTable({ items, setItems, setItemIndex }) {
         if( window.confirm('Are you sure to delete ?') ){
             items.splice(ind, 1);
             setItems([...items]);
+
+            localStorage.setItem(itemsKey, JSON.stringify(items));
         }
     }
 
