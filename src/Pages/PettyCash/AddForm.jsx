@@ -94,7 +94,7 @@ const AddFormInput = ({allItems, item, ind, values, setValues}) => {
                     value={item_id}
                     onChange={handleChange}
                 >
-                    {allItems.map((item,i) => (
+                    {allItems?.map((item,i) => (
                         <MenuItem key={i} value={item.item_name}>
                             {item.item_name}
                         </MenuItem>
