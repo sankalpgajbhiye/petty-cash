@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import { TextField, Button, MenuItem, IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import { useNavigate } from "react-router-dom";
 
-import { itemsKey } from '../../constant';
+import { itemsKey, pettyCashKey } from '../../constant';
 
 const AddFormInput = ({allItems, item, ind, values, setValues}) => {
     // console.log(item);
@@ -156,7 +157,11 @@ export default function AddForm() {
         all_items: []
     }
 
+    let navigate = useNavigate();
+
     const [ values, setValues ] = useState(formObj);
+
+    const [ pettyCashEntries, setPettyCashEntries ] = useState([]);
 
     const storageItems = JSON.parse(localStorage.getItem(itemsKey));
 
@@ -191,8 +196,20 @@ export default function AddForm() {
     }
 
     const savePettyCash = () => {
-        console.log(values);
+        // console.log(values);
+        pettyCashEntries.push(values);
+        setPettyCashEntries([...pettyCashEntries]);
+
+        localStorage.setItem(pettyCashKey, JSON.stringify(pettyCashEntries));
+        navigate(`/pettycash`);
     }
+
+    useEffect(() => {
+        if( localStorage.getItem(pettyCashKey) !== null ) {
+            const storagePettyCashEntries = JSON.parse(localStorage.getItem(pettyCashKey));
+            setPettyCashEntries([...storagePettyCashEntries]);
+        }
+    }, [])
         
     return (
         <>
@@ -256,7 +273,9 @@ export default function AddForm() {
                 
                 <Grid item xs={9}></Grid>
                 <Grid item xs={3}>
-                    <Button variant="outlined" color="success" onClick={savePettyCash}> Save Entry</Button>
+                    { values.all_items.length > 0 && 
+                        <Button variant="outlined" color="success" onClick={savePettyCash}> Save Entry</Button>
+                    }
                 </Grid>
             </Grid>
         </>

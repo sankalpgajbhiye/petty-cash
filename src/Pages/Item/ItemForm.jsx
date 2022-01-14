@@ -26,7 +26,10 @@ export default function ItemForm({ items, setItems, itemIndex, setItemIndex }) {
         if( validateForm() ) {
 
             if(itemIndex !== "") items[itemIndex] = values;
-            if(itemIndex === "") items.push(values);
+            if(itemIndex === "") {
+                values.id = Date.now();
+                items.push(values);
+            };
 
             setItems([...items]);
 
