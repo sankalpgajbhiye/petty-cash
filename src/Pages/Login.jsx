@@ -26,6 +26,12 @@ export default function Login() {
     const handleLogin = () => {
         if( validateForm() ) {
             // console.log(values);
+            const userObj = {
+                name: "abc user",
+                age: 23,
+                token: "xsyfdsuayddseww"
+            }
+            localStorage.setItem('user_data', JSON.stringify(userObj));
             navigate(`/dashboard`);
         }
     }

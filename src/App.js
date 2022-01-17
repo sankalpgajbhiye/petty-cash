@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 // Pages Import
+import Timer from './Pages/Timer';
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
 import Item from './Pages/Item';
@@ -16,7 +17,8 @@ function App() {
 		<>
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Login />} />
+				<Route path="/" element={<Timer />} />
+				<Route path="/login" element={<Login />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/item" element={<Item />} />
 				<Route path="/pettycash" element={<PettyCash />} />				

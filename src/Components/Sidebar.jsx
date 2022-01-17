@@ -8,6 +8,7 @@ export default function Sidebar() {
     let navigate = useNavigate();
 
     const handleLogout = () => {
+        localStorage.removeItem('user_data');
         navigate(`/`);
     }
 
