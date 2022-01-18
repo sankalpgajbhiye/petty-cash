@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Button } from '@mui/material';
 import { Link } from "react-router-dom";
+
+import { UserContext } from '../UserContext';
 
 export default function Timer() {
 
     const [ time, setTime ] = useState(0);
     const [ isActive, setIsActive ] = useState(false);
+
+    const { globalItem } = useContext(UserContext);
 
     const fileInputRef = useRef();
 
@@ -24,6 +28,8 @@ export default function Timer() {
 
     useEffect(() => {
         let interval = null;
+
+        console.log(globalItem);
 
         if (isActive) {
             interval = setInterval(() => {
