@@ -12,6 +12,8 @@ export default function Index() {
     const [items, setItems] = useState([]);
     const [itemIndex, setItemIndex] = useState("");
 
+    // const [itemIndex, setItemIndex] = useState(""); testing of git
+
     useEffect(() => {
         if( localStorage.getItem(itemsKey) !== null ) {
             const storageItems = JSON.parse(localStorage.getItem(itemsKey));
