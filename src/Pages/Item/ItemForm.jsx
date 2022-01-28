@@ -3,6 +3,9 @@ import { TextField, Button } from '@mui/material';
 
 import { itemsKey } from '../../constant';
 
+import useForm from '../../hooks/useForm';
+
+
 export default function ItemForm({ items, setItems, itemIndex, setItemIndex }) {
 
     const formObj = {
@@ -10,17 +13,9 @@ export default function ItemForm({ items, setItems, itemIndex, setItemIndex }) {
         item_price: ""
     }
 
-    const [ values, setValues ] = useState(formObj);
+    const { handleChange, values, setValues } = useForm(formObj);
+
     const [ errors, setErrors ] = useState({});
-
-    const handleChange = (e) => {
-        const { name, value} = e.target;
-
-        setValues({
-            ...values,
-            [name]: value
-        })
-    }
 
     const handleAdd = () => {        
         if( validateForm() ) {

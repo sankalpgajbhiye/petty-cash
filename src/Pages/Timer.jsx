@@ -29,7 +29,7 @@ export default function Timer() {
     useEffect(() => {
         let interval = null;
 
-        console.log(globalItem);
+        // console.log(globalItem);
 
         if (isActive) {
             interval = setInterval(() => {
@@ -50,8 +50,8 @@ export default function Timer() {
                 <Button color='error' variant="outlined">Login </Button>
             </Link>
 
-            {/* <input ref={fileInputRef} type="file" style={{display: 'none'}}/>
-            <Button color='warning' variant="outlined" onClick={openFilePopUp}>Upload </Button> */}
+            <input ref={fileInputRef} type="file" style={{display: 'none'}}/>
+            <Button color='warning' variant="outlined" onClick={openFilePopUp}>Upload </Button>
         </div>
     )
 }
